@@ -26,6 +26,10 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String autoSelected;
   private final SendableChooser<String> chooser = new SendableChooser<>();
+  private final ExpansionHubMotor hubMotor1 = new ExpansionHubMotor(0, 0);
+   private final ExpansionHubMotor hubMotor2 = new ExpansionHubMotor(0, 0);
+    private final ExpansionHubMotor hubMotor3 = new ExpansionHubMotor(0, 0);
+     private final ExpansionHubMotor hubMotor4 = new ExpansionHubMotor(0, 0);
   
 
   /**
