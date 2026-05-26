@@ -7,6 +7,14 @@ package first.robot;
 import org.wpilib.framework.TimedRobot;
 import org.wpilib.smartdashboard.SendableChooser;
 import org.wpilib.smartdashboard.SmartDashboard;
+import org.wpilib.hardware.expansionhub.ExpansionHubCRServo;
+
+import org.wpilib.hardware.expansionhub.ExpansionHubCRServo;
+import org.wpilib.framework.RobotBase;
+import org.wpilib.hardware.expansionhub.ExpansionHubMotor;
+import org.wpilib.hardware.expansionhub.ExpansionHubPositionConstants;
+import org.wpilib.hardware.expansionhub.ExpansionHubServo;
+import org.wpilib.hardware.expansionhub.ExpansionHubVelocityConstants;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -18,6 +26,7 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String autoSelected;
   private final SendableChooser<String> chooser = new SendableChooser<>();
+  
 
   /**
    * This function is run when the robot is first started up and should be used for any
