@@ -89,7 +89,13 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    hubMotor1.setThrottle(gamepad1.left_stick_y);
+    hubMotor2.setThrottle(gamepad1.right_stick_y);
+    hubMotor3.setThrottle(gamepad2.left_stick_y);
+    hubMotor4.setThrottle(gamepad2.right_stick_y);
+  }
+
 
   /** This function is called once when the robot is disabled. */
   @Override
