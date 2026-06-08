@@ -27,9 +27,10 @@ public class Robot extends TimedRobot {
   private String autoSelected;
   private final SendableChooser<String> chooser = new SendableChooser<>();
   private final ExpansionHubMotor hubMotor1 = new ExpansionHubMotor(0, 0);
-   private final ExpansionHubMotor hubMotor2 = new ExpansionHubMotor(0, 0);
-    private final ExpansionHubMotor hubMotor3 = new ExpansionHubMotor(0, 0);
-     private final ExpansionHubMotor hubMotor4 = new ExpansionHubMotor(0, 0);
+  private final ExpansionHubMotor hubMotor2 = new ExpansionHubMotor(0, 1);
+  private final ExpansionHubMotor hubMotor3 = new ExpansionHubMotor(0, 2);
+  private final ExpansionHubMotor hubMotor4 = new ExpansionHubMotor(0, 3);
+  private final ExpansionHubCRServo hubServo1 = new ExpansionHubCRServo(0, 0);
   
 
   /**
@@ -94,7 +95,23 @@ public class Robot extends TimedRobot {
     hubMotor2.setThrottle(gamepad1.right_stick_y);
     hubMotor3.setThrottle(gamepad2.left_stick_y);
     hubMotor4.setThrottle(gamepad2.right_stick_y);
+
+      if (gamepad1.a) {
+        hubServo1.set(1.0); 
+      } else if (gamepad1.b) {
+        hubServo1.set(-1.0); 
+      } else if (gamepad1.x) {
+        hubServo1.set(0.0); 
+      } 
+    if (gamepad1.y) {
+      hubMotor1.setPositionSetPoint(1000, ExpansionHubPositionConstants.Units.TICKS); 
+      hubMotor2.setPositionSetPoint(1000, ExpansionHubPositionConstants.Units.TICKS); 
+      hubMotor3.setPositionSetPoint(1000, ExpansionHubPositionConstants.Units.TICKS);  
+      hubMotor4.setPositionSetPoint(1000, ExpansionHubPositionConstants.Units.TICKS); 
+    }
+
   }
+
 
 
   /** This function is called once when the robot is disabled. */
