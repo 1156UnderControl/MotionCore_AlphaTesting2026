@@ -103,13 +103,15 @@ public class Robot extends TimedRobot {
     hubMotor3.setThrottle(gamepad2.getLeftY());
     hubMotor4.setThrottle(gamepad2.getRightY());
     
-      if (gamepad1.getBackButton()) {
+      if (gamepad1.getDpadDownButton()) {
         hubServo1.setPosition(1.0);
-     // } else if (gamepad1.getRightBumperButton()) {
-     //   hubServo1.setThrottle0(-1.0); 
+      }
+      if (gamepad1.getDpadUpButton()) {
+        hubServo1.setPosition(1.0);
+      }
      // } else if (gamepad1.getBackButton()) {
     //    hubServo1.setThrottle(0.0); 
-      } 
+    
    // if (gamepad1.getStartButton()) {
     //  hubMotor1.setPositionSetpoint(3000); 
     //  hubMotor2.setPositionSetpoint(3000); 
