@@ -7,6 +7,7 @@ package first.robot;
 import org.wpilib.framework.TimedRobot;
 import org.wpilib.smartdashboard.SendableChooser;
 import org.wpilib.smartdashboard.SmartDashboard;
+import org.wpilib.units.measure.Voltage;
 import org.wpilib.hardware.expansionhub.ExpansionHubCRServo;
 
 import org.wpilib.hardware.expansionhub.ExpansionHubCRServo;
@@ -15,6 +16,10 @@ import org.wpilib.hardware.expansionhub.ExpansionHubMotor;
 import org.wpilib.hardware.expansionhub.ExpansionHubPositionConstants;
 import org.wpilib.hardware.expansionhub.ExpansionHubServo;
 import org.wpilib.hardware.expansionhub.ExpansionHubVelocityConstants;
+
+import static org.wpilib.units.Units.Volts;
+
+import org.wpilib.driverstation.Gamepad;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -30,8 +35,10 @@ public class Robot extends TimedRobot {
   private final ExpansionHubMotor hubMotor2 = new ExpansionHubMotor(0, 1);
   private final ExpansionHubMotor hubMotor3 = new ExpansionHubMotor(0, 2);
   private final ExpansionHubMotor hubMotor4 = new ExpansionHubMotor(0, 3);
-  private final ExpansionHubCRServo hubServo1 = new ExpansionHubCRServo(0, 0);
-  
+  private final ExpansionHubServo hubServo1 = new ExpansionHubServo(0, 0);
+  private final Gamepad gamepad1 = new Gamepad(0);
+  private final Gamepad gamepad2 = new Gamepad(1);
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -91,23 +98,35 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    hubMotor1.setThrottle(gamepad1.left_stick_y);
-    hubMotor2.setThrottle(gamepad1.right_stick_y);
-    hubMotor3.setThrottle(gamepad2.left_stick_y);
-    hubMotor4.setThrottle(gamepad2.right_stick_y);
-
-      if (gamepad1.a) {
-        hubServo1.set(1.0); 
-      } else if (gamepad1.b) {
-        hubServo1.set(-1.0); 
-      } else if (gamepad1.x) {
-        hubServo1.set(0.0); 
+    hubMotor1.setThrottle(gamepad1.getLeftY());
+    hubMotor2.setThrottle(gamepad1.getRightY());
+    hubMotor3.setThrottle(gamepad2.getLeftY());
+    hubMotor4.setThrottle(gamepad2.getRightY());
+    
+      if (gamepad1.getBackButton()) {
+        hubServo1.setPosition(1.0);
+     // } else if (gamepad1.getRightBumperButton()) {
+     //   hubServo1.setThrottle0(-1.0); 
+     // } else if (gamepad1.getBackButton()) {
+    //    hubServo1.setThrottle(0.0); 
       } 
-    if (gamepad1.y) {
-      hubMotor1.setPositionSetPoint(1000, ExpansionHubPositionConstants.Units.TICKS); 
-      hubMotor2.setPositionSetPoint(1000, ExpansionHubPositionConstants.Units.TICKS); 
-      hubMotor3.setPositionSetPoint(1000, ExpansionHubPositionConstants.Units.TICKS);  
-      hubMotor4.setPositionSetPoint(1000, ExpansionHubPositionConstants.Units.TICKS); 
+   // if (gamepad1.getStartButton()) {
+    //  hubMotor1.setPositionSetpoint(3000); 
+    //  hubMotor2.setPositionSetpoint(3000); 
+    //  hubMotor3.setPositionSetpoint(3000);  
+     // hubMotor4.setPositionSetpoint(3000); 
+   // }
+
+if (gamepad1.getStartButton()) {
+  hubMotor1.setVoltage(Voltage.ofBaseUnits(1, Volts));
+  hubServo1.setPosition(1.0);
+
+}
+   if (gamepad1.getStartButton()) {
+      hubMotor1.setPositionSetpoint(0); 
+      hubMotor2.setPositionSetpoint(0); 
+     hubMotor3.setPositionSetpoint(0);  
+      hubMotor4.setPositionSetpoint(0); 
     }
 
   }
