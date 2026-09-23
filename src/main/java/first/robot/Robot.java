@@ -7,19 +7,12 @@ package first.robot;
 import org.wpilib.framework.TimedRobot;
 import org.wpilib.smartdashboard.SendableChooser;
 import org.wpilib.smartdashboard.SmartDashboard;
-import org.wpilib.units.measure.Voltage;
-import org.wpilib.hardware.expansionhub.ExpansionHubCRServo;
 
-import org.wpilib.hardware.expansionhub.ExpansionHubCRServo;
-import org.wpilib.framework.RobotBase;
-import org.wpilib.hardware.expansionhub.ExpansionHubMotor;
-import org.wpilib.hardware.expansionhub.ExpansionHubPositionConstants;
-import org.wpilib.hardware.expansionhub.ExpansionHubServo;
-import org.wpilib.hardware.expansionhub.ExpansionHubVelocityConstants;
+import com.revrobotics.spark.A301;
 
-import static org.wpilib.units.Units.Volts;
+import first.robot.A301.A301_drivetrain;
 
-import org.wpilib.driverstation.Gamepad;
+
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -31,13 +24,12 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String autoSelected;
   private final SendableChooser<String> chooser = new SendableChooser<>();
-  private final ExpansionHubMotor hubMotor1 = new ExpansionHubMotor(0, 0);
-  private final ExpansionHubMotor hubMotor2 = new ExpansionHubMotor(0, 1);
-  private final ExpansionHubMotor hubMotor3 = new ExpansionHubMotor(0, 2);
-  private final ExpansionHubMotor hubMotor4 = new ExpansionHubMotor(0, 3);
-  private final ExpansionHubServo hubServo1 = new ExpansionHubServo(0, 0);
-  private final Gamepad gamepad1 = new Gamepad(0);
-  private final Gamepad gamepad2 = new Gamepad(1);
+
+  private final A301_drivetrain drivetrain = new A301_drivetrain();
+
+
+  
+
 
 
   /**
@@ -48,6 +40,7 @@ public class Robot extends TimedRobot {
     chooser.setDefaultOption("Default Auto", kDefaultAuto);
     chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", chooser);
+
   }
 
   /**
@@ -58,7 +51,9 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+
+  }
 
   /**
    * This autonomous (along with the chooser code above) shows how to select between different
@@ -96,42 +91,12 @@ public class Robot extends TimedRobot {
   public void teleopInit() {}
 
   /** This function is called periodically during operator control. */
-  @Override
-  public void teleopPeriodic() {
-    hubMotor1.setThrottle(gamepad1.getLeftY());
-    hubMotor2.setThrottle(gamepad1.getRightY());
-    hubMotor3.setThrottle(gamepad2.getLeftY());
-    hubMotor4.setThrottle(gamepad2.getRightY());
-    
-      if (gamepad1.getDpadDownButton()) {
-        hubServo1.setPosition(1.0);
-      }
-      if (gamepad1.getDpadUpButton()) {
-        hubServo1.setPosition(1.0);
-      }
-     // } else if (gamepad1.getBackButton()) {
-    //    hubServo1.setThrottle(0.0); 
-    
-   // if (gamepad1.getStartButton()) {
-    //  hubMotor1.setPositionSetpoint(3000); 
-    //  hubMotor2.setPositionSetpoint(3000); 
-    //  hubMotor3.setPositionSetpoint(3000);  
-     // hubMotor4.setPositionSetpoint(3000); 
-   // }
+@Override
+public void teleopPeriodic() {
+  drivetrain.runOpMode();
 
-if (gamepad1.getStartButton()) {
-  hubMotor1.setVoltage(Voltage.ofBaseUnits(1, Volts));
-  hubServo1.setPosition(1.0);
 
 }
-   if (gamepad1.getStartButton()) {
-      hubMotor1.setPositionSetpoint(0); 
-      hubMotor2.setPositionSetpoint(0); 
-     hubMotor3.setPositionSetpoint(0);  
-      hubMotor4.setPositionSetpoint(0); 
-    }
-
-  }
 
 
 
