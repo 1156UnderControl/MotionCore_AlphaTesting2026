@@ -5,10 +5,7 @@
 package first.robot.A301;
 
 import org.wpilib.framework.TimedRobot;
-import org.wpilib.smartdashboard.SendableChooser;
-import org.wpilib.smartdashboard.SmartDashboard;
-
-import org.wpilib.hardware.hal.CANBusMap;
+import org.wpilib.hardware.bus.CANPort;
 
 import com.revrobotics.spark.A301;
 
@@ -24,9 +21,8 @@ public class A301_test1 extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String autoSelected;
-  private final SendableChooser<String> chooser = new SendableChooser<>();
 
-  private final A301 motor = new A301(CANBusMap.CAN_D10);
+  private final A301 motor = new A301(CANPort.CAN_D10);
   private final Gamepad gamepad1 = new Gamepad(0);
 
 
@@ -35,9 +31,6 @@ public class A301_test1 extends TimedRobot {
    * initialization code.
    */
   public A301_test1() {
-    chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", chooser);
   }
 
   /**
@@ -62,8 +55,7 @@ public class A301_test1 extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    autoSelected = chooser.getSelected();
-    // autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
+    autoSelected = kDefaultAuto;
     System.out.println("Auto selected: " + autoSelected);
   }
 
